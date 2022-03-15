@@ -183,7 +183,6 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
     defer {
       isCurrentlyUpdatingView.value = false
     }
-      
     if let binding = fontSize {
       textView.applyNewTheme(themeName, andFontSize: binding.wrappedValue)
     }
@@ -215,7 +214,16 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
         #if os(macOS)
           textView.setSelectedRange(nsrange)
         #elseif os(iOS)
-          textView.selectedRange = nsrange
+          // HACK
+          if textView.selectedRange != nsrange {
+              print(textView.selectedRange, nsrange)
+              textView.selectedRange = nsrange
+              print(textView.selectedRange, nsrange)
+              if textView.selectedRange == nsrange {
+                  textView.becomeFirstResponder()
+              }
+          }
+
         #else
           #error("Unsupported OS")
         #endif
