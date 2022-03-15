@@ -216,9 +216,9 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
         #elseif os(iOS)
           // HACK
           if textView.selectedRange != nsrange {
-              print(textView.selectedRange, nsrange)
+//              print(textView.selectedRange, nsrange)
               textView.selectedRange = nsrange
-              print(textView.selectedRange, nsrange)
+//              print(textView.selectedRange, nsrange)
               if textView.selectedRange == nsrange {
                   textView.becomeFirstResponder()
               }
